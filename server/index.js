@@ -10,7 +10,7 @@ app.get('/css', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.css'));
 });
 
-app.get('/mainjs', (req, res) => {
+app.get('/main', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/main.js'));
 });
 
