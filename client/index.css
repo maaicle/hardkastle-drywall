@@ -1,11 +1,14 @@
 html {
     /* scroll-snap-type: y mandatory; */
     font-family: sans-serif;
+    /* min-width: 320px; */
   }
 
 body {
     margin: 0px;
     background-color: #313431;
+    min-width: 320px;
+    /* width: 320px; */
 }
 
 header {
@@ -25,70 +28,84 @@ footer {
     width: 202.5px;
 }
 
-.card {
-    /* scroll-snap-align: center; */
-    /* border-bottom: 1px solid black; */
-    height: 700px;
-    padding: 1rem;
-    font-size: 1.2rem;
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #313431;
+.card-cont {
+    width: 100%
+}
 
+.card {   
+    height: 700px;
+    /* width: 100%; */
+    background-color: #313431;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    filter: grayscale(100%);
-    /* opacity: 0; */
-    /* transition: opacity 1s; */
-    color: white;
-}
-
-.in-view {
-    /* opacity: 1; */
-    /* transition: opacity 2s; */
-    
 }
 
 .card1 {
-    background-image: url(../pics/stonewall.jpg); 
+    /* background-image: url(../pics/stonewall-bw.jpg); */
+    background-image: url(/stonewall);
 }
 
 .card2 {
-    background-image: url(../pics/elevator.jpg);
+    background-image: url(../pics/elevator-bw.jpg);
 }
 
 .card3 {
-    background-color: #313431;
-    background-image: url(../pics/paint-hole-window.jpg);
+    background-image: url(../pics/paint-hole-window-bw.jpg);
 }
 
 .card4{
-    background-color: #313431;
-    background-image: url(../pics/stud-wall.jpg);
+    background-image: url(../pics/stud-wall-bw.jpg);
 }
 
 .card-content {
+    position: relative;
     background-color: #313431;
+    border: solid;
+    border-color: #ee7b28;
     height: 500px;
     width: 500px;
+    left: 10%;
+    top: 14%;
+    opacity: 87%
+    /* margin-left: 125px; */
 }
 
-p {
-    text-align: center;
-}
+/* .card2 .card-content{
+    left: 60%;
+    top: 14%
+} */
 
-.p_contain {
+/* .p_contain {
     vertical-align: middle;
     height: 500px;
     width: 500px;
-}
+} */
 
-/* @keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
-  } */
+
+/* Medium screens */
+@media all and (max-width: 800px) {
+    .card {
+        display: flex;
+      /* justify-content: center; */
+    }
+    
+    .card-content {
+        margin: auto;
+        left: auto;
+        top: auto;
+    }
+  }
+  
+  /* Small screens */
+  @media all and (max-width: 500px) {
+    .card {
+        height: 500px;
+    }
+
+    .card-content {
+        height: 300px;
+        width: 300px;
+    }
+  }
