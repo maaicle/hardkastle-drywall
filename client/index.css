@@ -48,15 +48,18 @@ footer {
 }
 
 .card2 {
-    background-image: url(../pics/elevator-bw.jpg);
+    background-image: url(/elevator);
+    /* background-image: url(../pics/elevator-bw.jpg); */
 }
 
 .card3 {
-    background-image: url(../pics/paint-hole-window-bw.jpg);
+    background-image: url(/painthole);
+    /* background-image: url(../pics/paint-hole-window-bw.jpg); */
 }
 
 .card4{
-    background-image: url(../pics/stud-wall-bw.jpg);
+    background-image: url(/studwall);
+    /* background-image: url(../pics/stud-wall-bw.jpg); */
 }
 
 .card-content {

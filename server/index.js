@@ -26,6 +26,18 @@ app.get('/stonewall', (req, res) => {
     res.sendFile(path.join(__dirname, '../pics/stonewall-bw.jpg'));
 });
 
+app.get('/elevator', (req, res) => {
+    res.sendFile(path.join(__dirname, '../pics/elevator-bw.jpg'));
+});
+
+app.get('/painthole', (req, res) => {
+    res.sendFile(path.join(__dirname, '../pics/paint-hole-window-bw.jpg'));
+});
+
+app.get('/studwall', (req, res) => {
+    res.sendFile(path.join(__dirname, '../pics/stud-wall-bw.jpg'));
+});
+
 
 
 const port = process.env.PORT || 4007;
