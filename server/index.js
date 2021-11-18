@@ -37,7 +37,7 @@ app.get('/objobs', (req, res) => {
 });
 
 app.get('/pics/hkdrywall-curve.png', (req, res) => {
-    res.sendFile(path.join(__dirname, '../pics/HKdrywall-curve.png'));
+    res.sendFile(path.join(__dirname, '../client/pics/HKdrywall-curve.png'));
 });
 
 app.get('/stonewall', (req, res) => {
