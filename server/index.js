@@ -20,10 +20,12 @@ app.get('/rollbartest', (req, res) => {
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'));
+    rollbar.info('html file loaded successfully');
 });
 
 app.get('/index.css', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.css'));
+    rollbar.info('css file loaded successfully')
 });
 
 app.get('/main', (req, res) => {
