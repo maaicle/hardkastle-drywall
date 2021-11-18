@@ -36,7 +36,7 @@ app.get('/objobs', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/object-observer.js'));
 });
 
-app.get('/../pics/HKdrywall-curve.png', (req, res) => {
+app.get('/hklogo', (req, res) => {
     res.sendFile(path.join(__dirname, '../pics/HKdrywall-curve.png'));
 });
 
