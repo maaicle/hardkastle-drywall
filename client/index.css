@@ -43,23 +43,23 @@ footer {
 }
 
 .card1 {
-    /* background-image: url(../pics/stonewall-bw.jpg); */
-    background-image: url(/stonewall);
+    background-image: url(../pics/stonewall-bw.jpg);
+    /* background-image: url(/stonewall); */
 }
 
 .card2 {
-    background-image: url(/elevator);
-    /* background-image: url(../pics/elevator-bw.jpg); */
+    /* background-image: url(/elevator); */
+    background-image: url(../pics/elevator-bw.jpg);
 }
 
 .card3 {
-    background-image: url(/painthole);
-    /* background-image: url(../pics/paint-hole-window-bw.jpg); */
+    /* background-image: url(/painthole); */
+    background-image: url(../pics/paint-hole-window-bw.jpg);
 }
 
 .card4{
-    background-image: url(/studwall);
-    /* background-image: url(../pics/stud-wall-bw.jpg); */
+    /* background-image: url(/studwall); */
+    background-image: url(../pics/stud-wall-bw.jpg);
 }
 
 .card-content {

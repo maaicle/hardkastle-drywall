@@ -13,11 +13,16 @@ var rollbar = new Rollbar({
 // record a generic message and send it to Rollbar
 rollbar.log("Hello world!");
 
+app.get('/rollbartest', (req, res) => {
+    rollbar.log("This is a new test");
+    console.log("This is a new test");
+})
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-app.get('/css', (req, res) => {
+app.get('/index.css', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.css'));
 });
 
