@@ -1,6 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 // include and initialize the rollbar library with your access token
 var Rollbar = require("rollbar");
@@ -14,10 +18,13 @@ var rollbar = new Rollbar({
 rollbar.log("Hello world!");
 
 app.get('/rollbartest', (req, res) => {
-    rollbar.log("This is a new test");
+    // rollbar.log("This is a new test");
+    res.status(200).send('Returned from back end');
     console.log("This is a new test");
 })
 
+
+//Site endpoints
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'));
     rollbar.info('html file loaded successfully');
