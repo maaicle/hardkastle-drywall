@@ -17,11 +17,11 @@ var rollbar = new Rollbar({
 // record a generic message and send it to Rollbar
 rollbar.log("Hello world!");
 
-app.get('/rollbartest', (req, res) => {
-    // rollbar.log("This is a new test");
-    res.status(200).send('Returned from back end');
-    console.log("This is a new test");
-})
+// app.get('/rollbartest', (req, res) => {
+//     // rollbar.log("This is a new test");
+//     res.status(200).send('Returned from back end');
+//     console.log("This is a new test");
+// })
 
 
 //Site endpoints
