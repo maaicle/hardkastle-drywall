@@ -2,9 +2,9 @@
   "name": "hardcastle-drywall",
   "version": "1.0.0",
   "description": "",
-  "main": "server/index.js",
+  "main": "server/server.js",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
