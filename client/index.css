@@ -12,11 +12,19 @@ body {
 }
 
 header {
-    position: relative;
+    position: fixed;
     height: 104.5px;
+    width: 100vw;
     background-image: linear-gradient(#e0832f,  #f09535, #e0832f, #cd6e29);
     filter: grayscale(10%);
+    z-index: 100;
 }
+
+.header {
+    position: relative;
+    height: 104.5px;
+}
+
 
 footer {
     position: relative;
@@ -35,6 +43,12 @@ footer {
 .card {   
     height: 700px;
     /* width: 100%; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: space-around;
+
     background-color: #313431;
     background-repeat: no-repeat;
     background-size: cover;
@@ -54,7 +68,7 @@ footer {
 
 .card3 {
     /* background-image: url(/painthole); */
-    background-image: url(pics/paint-hole-window-bw.jpg);
+    /* background-image: url(pics/paint-hole-window-bw.jpg); */
 }
 
 .card4{
@@ -62,43 +76,75 @@ footer {
     background-image: url(pics/stud-wall-bw.jpg);
 }
 
-.card-content {
-    position: relative;
+.cc {
+    /* position: relative; */
     background-color: #313431;
     border: solid;
     border-color: #ee7b28;
     height: 500px;
     width: 500px;
-    left: 10%;
-    top: 14%;
+    flex: 0 1 auto;
+
     opacity: 87%
     /* margin-left: 125px; */
 }
 
-/* .card2 .card-content{
-    left: 60%;
-    top: 14%
-} */
+.card1 .cc-2 {
+    opacity: 0%;
+}
 
-/* .p_contain {
-    vertical-align: middle;
-    height: 500px;
-    width: 500px;
-} */
+.card2 .cc-1 {
+    opacity: 0%;
+}
+
+.card3 .cc-1 {
+    background-image: url(pics/paint-hole-window-bw.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    /* background-attachment: fixed; */
+}
+
+.card3 .cc-3 {
+    height: 100px;
+    /* flex-grow: 1; */
+    width: 90vw;
+    align-self: flex-end;
+}
 
 
 /* Medium screens */
-@media all and (max-width: 800px) {
+@media all and (max-width: 1100px) {
     .card {
-        display: flex;
+        /* display: flex; */
+        flex-wrap: nowrap;
+        flex-direction: column;
       /* justify-content: center; */
     }
     
-    .card-content {
+    .cc {
         margin: auto;
         left: auto;
         top: auto;
     }
+
+    .card1 .cc-2 {
+        display: none;
+    }
+    
+    .card2 .cc-1 {
+        display: none;
+    }
+
+    .card3 .cc-2 {
+        display: none;
+    }
+
+    .card3 .cc-3 {
+        /* opacity: 0%; */
+        width: 500px;
+    }
+
   }
   
   /* Small screens */
@@ -107,8 +153,19 @@ footer {
         height: 500px;
     }
 
-    .card-content {
+    .cc {
         height: 300px;
         width: 300px;
     }
+
+    .card3 .cc-3 {
+        height: 100px;
+        width: 300px;
+    }
+
+    /* .card3 .cc-3 {
+        height: 100px;
+        width: 300px;
+    } */
+    
   }
