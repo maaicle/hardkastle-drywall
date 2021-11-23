@@ -8,6 +8,8 @@ body {
     margin: 0px;
     background-color: #313431;
     min-width: 320px;
+    font-family: montserrat;
+    color: white;
     /* width: 320px; */
 }
 
@@ -20,13 +22,22 @@ header {
     z-index: 100;
 }
 
-.header {
+p {
+    font-size: 24px;
+    margin: 0px 20px;
+}
+
+h1 {
+    font-size: 48px;
+    margin: 0px 20px;
+}
+
+footer {
     position: relative;
     height: 104.5px;
 }
 
-
-footer {
+.header {
     position: relative;
     height: 104.5px;
 }
@@ -41,6 +52,7 @@ footer {
 }
 
 .card {   
+    /* height: 75vh; */
     height: 700px;
     /* width: 100%; */
     display: flex;
@@ -77,16 +89,25 @@ footer {
 }
 
 .cc {
-    /* position: relative; */
     background-color: #313431;
     border: solid;
     border-color: #ee7b28;
     height: 500px;
     width: 500px;
     flex: 0 1 auto;
+    opacity: 87%;
 
-    opacity: 87%
-    /* margin-left: 125px; */
+    /* height: 0;
+    width: 35%;
+    padding-bottom: 35% */
+    
+}
+
+.card1 .cc-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* align-items: center; */
 }
 
 .card1 .cc-2 {
@@ -97,6 +118,13 @@ footer {
     opacity: 0%;
 }
 
+.card2 .cc-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* align-items: center; */
+}
+
 .card3 .cc-1 {
     background-image: url(pics/paint-hole-window-bw.jpg);
     background-repeat: no-repeat;
@@ -105,27 +133,109 @@ footer {
     /* background-attachment: fixed; */
 }
 
+.card3 .cc-2 {
+    opacity: 100%;
+    border:none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.fun-fact {
+    background-color: #313431;
+    border: solid;
+    border-color: #ee7b28;
+    height: 100px;
+    width: 100%;
+    flex: 0 1 auto;
+    opacity: 87%;  
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
 .card3 .cc-3 {
     height: 100px;
-    /* flex-grow: 1; */
+    opacity: 100%;
     width: 90vw;
+    border: none;
     align-self: flex-end;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.project-box {
+    background-color: #313431;
+    border: solid;
+    border-color: #ee7b28;
+    height: 100px;
+    width: 100px;
+    flex: 0 1 auto;
+    opacity: 87%;
+
+    display: flex;
+    align-items: center;
+}
+
+.pb-text {
+    margin: 0px;
+    text-align: center;
+    /* font-size: 24px; */
+}
+
+.card4 .cc-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 100%;
+}
+
+.qb-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 300px;
+}
+
+.quote-box {
+    background-color: white;
+    border: none;
+    border-radius: 0%;
+    border-color: #ee7b28;
+    /* height: 100px; */
+    width: 300px;
+    height: 30px;
+    flex: 0 1 auto;
+    opacity: 87%;
+    font-family: montserrat;
+    font-size: 16px;
+}
+
+.quote-box:focus {
+    border-radius: 0%;
+    outline: none;
+    /* background-color: #ee7b28;
+    color: white; */
+    /* border: solid; */
+    /* width: 400px; */
+    /* outline-color: #e0832f; */
+}
+
+.qb-4 {
+    height: 100px;
+    text-align: start;
 }
 
 
 /* Medium screens */
 @media all and (max-width: 1100px) {
     .card {
-        /* display: flex; */
-        flex-wrap: nowrap;
+        /* flex-wrap: nowrap; */
         flex-direction: column;
       /* justify-content: center; */
-    }
-    
-    .cc {
-        margin: auto;
-        left: auto;
-        top: auto;
     }
 
     .card1 .cc-2 {
@@ -163,9 +273,19 @@ footer {
         width: 300px;
     }
 
-    /* .card3 .cc-3 {
-        height: 100px;
-        width: 300px;
-    } */
+    .project-box {
+        width: 50px;
+        height: 50px;
+    }
+
+    p {
+        font-size: 16px;
+        margin: 0px 20px;
+    }
+    
+    h1 {
+        font-size: 24px;
+        margin: 0px 20px;
+    }
     
   }
