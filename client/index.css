@@ -217,11 +217,6 @@ footer {
 .quote-box:focus {
     border-radius: 0%;
     outline: none;
-    /* background-color: #ee7b28;
-    color: white; */
-    /* border: solid; */
-    /* width: 400px; */
-    /* outline-color: #e0832f; */
 }
 
 .qb-4 {
@@ -259,6 +254,16 @@ footer {
   
   /* Small screens */
   @media all and (max-width: 500px) {
+    p {
+        font-size: 16px;
+        margin: 0px 20px;
+    }
+    
+    h1 {
+        font-size: 24px;
+        margin: 0px 20px;
+    }
+
     .card {
         height: 500px;
     }
@@ -278,14 +283,12 @@ footer {
         height: 50px;
     }
 
-    p {
-        font-size: 16px;
-        margin: 0px 20px;
+    .pb-text {
+        font-size: 12px;
     }
-    
-    h1 {
-        font-size: 24px;
-        margin: 0px 20px;
+
+    .quote-box {
+        width: 250px;
     }
     
   }
