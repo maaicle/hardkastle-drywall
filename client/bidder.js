@@ -4,6 +4,7 @@ const iSubmit = document.querySelectorAll('.i-submit');
 const iCostPer = document.querySelectorAll('.i-cost-per');
 const iQty = document.querySelectorAll('.i-quantity');
 const lineTotal = document.querySelector('.i-line-total');
+const itemBox = document.querySelector('.item-box');
 
 
 
@@ -27,11 +28,14 @@ const handleSubmit = event => {
         quantity: inputArr[2],
         unit: inputArr[3]
     }
-    console.log(body);
     axios.post(`/createLineItem`, body)
     .then(res => {
         console.log(res.data);
-        console.log(body);
+        let newDiv = document.createElement('div');
+        newDiv.classList.add('test');
+        itemBox.appendChild(newDiv);
+        newDiv.textContent=res.data.description;
+
     })
 };
 
