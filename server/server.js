@@ -18,6 +18,15 @@ app.get('/rollbartest', (req, res) => {
     console.log("This is a new test");
 })
 
+app.get('/bidder.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/bidder.html'));
+    rollbar.info('html file loaded successfully');
+});
+
+app.get('/bidder.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/bidder.css'));
+})
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'));
     rollbar.info('html file loaded successfully');
