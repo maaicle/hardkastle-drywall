@@ -31,6 +31,7 @@ const handleSubmit = event => {
     axios.post(`/createLineItem`, body)
     .then(res => {
         console.log(res.data);
+        console.log(body);
     })
 };
 

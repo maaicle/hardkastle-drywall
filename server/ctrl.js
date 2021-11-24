@@ -1,5 +1,7 @@
 module.exports = {
     createLineItem: (req, res) => {
-        res.status(200).send('cretedLineItems');
+        let body = req.body;
+        console.log(req.body);
+        res.status(200).send('createlineItems');
     }
 }
