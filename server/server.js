@@ -27,6 +27,11 @@ app.get('/bidder.css', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/bidder.css'));
 })
 
+app.get('/bidder.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/bidder.js'));
+    rollbar.info('html file loaded successfully');
+});
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'));
     rollbar.info('html file loaded successfully');
