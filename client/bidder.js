@@ -13,7 +13,6 @@ const handleLineTotal = event => {
     let targetCost = event.target.parentNode.querySelector('.i-cost-per').value;
     let targetQty = event.target.parentNode.querySelector('.i-quantity').value;
     lineTotal.textContent = (targetCost * targetQty).toFixed(2);
-    console.log('things working');
 }
 
 const handleSubmit = event => {
@@ -22,7 +21,17 @@ const handleSubmit = event => {
     inputFields.forEach(node => {
         inputArr.push(node.value);
     })
-    console.log(inputArr);
+    let body = {
+        description: inputArr[0],
+        costPer: inputArr[1],
+        quantity: inputArr[2],
+        unit: inputArr[3]
+    }
+    console.log(body);
+    axios.post(`/createLineItem`, body)
+    .then(res => {
+        console.log(res.data);
+    })
 };
 
 iCostPer.forEach(node => {

@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const ctrl = require("./ctrl.js");
 
 // include and initialize the rollbar library with your access token
 var Rollbar = require("rollbar");
@@ -71,6 +72,10 @@ app.get('/pics/stud-wall-bw.jpg', (req, res) => {
 });
 
 app.use(rollbar.errorHandler());
+
+app.post('/createLineItem', ctrl.createLineItem);
+console.log(ctrl.createLineItem);
+
 
 const port = process.env.PORT || 4007;
 
