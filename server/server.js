@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const app = express();
 const ctrl = require("./ctrl.js");
+
 
 app.use(cors());
 app.use(express.json());
@@ -75,13 +77,12 @@ app.get('/pics/stud-wall-bw.jpg', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/pics/stud-wall-bw.jpg'));
 });
 
+app.post('/createLineItem', ctrl.createLineItem);
+app.get('/getLineItems', ctrl.getLineItems);
+
 app.use(rollbar.errorHandler());
 
-app.post('/createLineItem', ctrl.createLineItem);
-console.log(ctrl.createLineItem);
-
-
-const port = process.env.PORT || 4007;
+const port = process.env.PORT;
 
 app.listen(port, () => {
     console.log(`Docked at port ${port}`);
