@@ -29,12 +29,12 @@ module.exports = {
 
     getLineItems: (req, res) => {
       console.log('Backend Response');
-      sequelize.query(`select *
-        from invoice inv
-        join item i on inv.inv_id = i.i_inv_id
-      `)
-        .then(dbRes => res.status(200).send(dbRes[0]))
-        .catch(err => console.log(err));
-      // res.status(200).send('Backend Response');
+      // sequelize.query(`select *
+      //   from invoice inv
+      //   join item i on inv.inv_id = i.i_inv_id
+      // `)
+      //   .then(dbRes => res.status(200).send(dbRes[0]))
+      //   .catch(err => console.log(err));
+      res.status(200).send('Backend Response');
     }
 }
