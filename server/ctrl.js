@@ -1,5 +1,5 @@
 require('dotenv').config();
-const {CONNECTION_STRING} = process.env;
+const {DATABASE_URL} = process.env;
 
 var Rollbar = require("rollbar");
 var rollbar = new Rollbar({
@@ -9,7 +9,7 @@ var rollbar = new Rollbar({
 });
 
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(CONNECTION_STRING, {
+const sequelize = new Sequelize(DATABASE_URL, {
   dialect: 'postgres',
   dialectOptions: {
     ssl: {
