@@ -77,8 +77,10 @@ app.get('/pics/stud-wall-bw.jpg', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/pics/stud-wall-bw.jpg'));
 });
 
+// Bidder API
 app.post('/createLineItem', ctrl.createLineItem);
-app.get('/getLineItems', ctrl.getLineItems);
+app.get('/getInvoice/:id', ctrl.getInvoice);
+app.get('/getInvoiceList', ctrl.getInvoiceList);
 
 app.use(rollbar.errorHandler());
 

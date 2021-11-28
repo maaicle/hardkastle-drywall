@@ -17,17 +17,30 @@
     </header>
     <div class="header"></div>
     <section class="body-box">
+        <section class="invoice-list">
+            <section class="item-input">
+                <input placeholder="New Invoice" type="text" class="i-field i-input i-description">
+                <input type="submit" class="i-submit">
+            </section>
+            <section class="list-box">
+                <section class="item">
+                    <p class= inv-name>Invoice Name</p>
+                    <button class="i-edit">Edit</button>
+                    <button class="i-delete">Delete</button>
+                </section>
+            </section>
+        </section>
         <section class="invoice-box">
             <section class="item-input">
                 <input placeholder="Description" type="text" class="i-field i-input i-description">
                 <input placeholder="Cost" type="number" class="i-field i-input i-cost-per">
                 <input placeholder="Qty" type="number" class="i-field i-input i-quantity">
                 <input placeholder="Unit Type" type="text" class="i-field i-input i-unit">
-                <div class="i-field i-line-total"></div>
+                <div class="i-field i-line-total">Line Total</div>
                 <input type="submit" class="i-submit">
             </section>
             <section class="item-box">
-                <section class="item inv-name-box">
+                <!-- <section class="item inv-name-box">
                     <p class= inv-name>Invoice Name</p>
                 </section>
                 <section class="item">
@@ -41,7 +54,7 @@
                 </section>
                 <section class="item invoice-total">
                     <div class="i-field i-total"></div>
-                </section>
+                </section> -->
             </section>
         </section>
     </section>

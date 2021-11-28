@@ -27,14 +27,21 @@ module.exports = {
         res.status(200).send(req.body);
     },
 
-    getLineItems: (req, res) => {
-      console.log('Backend Response');
+    getInvoice: (req, res) => {
+      const {id} = req.params;
       sequelize.query(`select *
         from invoice inv
         join item i on inv.inv_id = i.i_inv_id
+        where inv_id = ${id};
       `)
         .then(dbRes => res.status(200).send(dbRes[0]))
         .catch(err => console.log(err));
-      // res.status(200).send('Backend Response');
+    },
+
+    getInvoiceList: (req, res) => {
+      console.log('backend response');
+      sequelize.query(`select * from invoice`)
+        .then(dbRes => res.status(200).send(dbRes[0]))
+        .catch(err => console.log(err));
     }
 }

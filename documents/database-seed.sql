@@ -23,9 +23,9 @@ values ('First Invoice')
 
 insert into item (i_inv_id, i_description, i_cost, i_qty, i_unit)
 values ((select inv_id from invoice limit 1), 'Nails', 5.50, 10, 'box'),
-((select inv_id from invoice limit 1), 'Tape', 6, 6, 'box'),
-((select inv_id from invoice limit 1), 'Mud', 10, 2, 'box'),
-((select inv_id from invoice limit 1), 'Sheetrock', 10, 10, 'box')
+((select inv_id from invoice limit 1), 'Tape', 6, 6, 'roll'),
+((select inv_id from invoice limit 1), 'Mud', 10, 2, 'bucket'),
+((select inv_id from invoice limit 1), 'Sheetrock', 10, 10, 'sheet');
 
 update item
 set i_line_total = (i_cost * i_qty);
