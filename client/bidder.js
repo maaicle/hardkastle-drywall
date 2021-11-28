@@ -10,24 +10,28 @@ const getInvoiceList = () => {
     console.log(listBox);
     axios.get('/getInvoiceList')
         .then(res => {
-            //Create list items
+            // Create list items
             res.data.forEach(ele => {
-                let newSec = document.createElement('section');
+                let newSec = document.createElement('button');
+                newSec.classList.add('list-item');
                 newSec.classList.add('item');
+                newSec.innerText = 'Hello This is a test';
+                newSec.value = ele.inv_id;
                 listBox.appendChild(newSec);
                 newSec.innerHTML = 
                 `
-                <p class= inv-name>${ele.inv_name}</p>
+                ${ele.inv_name}
                 <button class="i-edit">Edit</button>
                 <button class="i-delete">Delete</button>
-                `                
+                `;
+                console.log(newSec.value)        
             })
         })
 }
 
-const getInvoice = () => {
+const getInvoice = (value) => {
     itemBox.innerHTML = '';
-    axios.get('/getInvoice/1')
+    axios.get(`/getInvoice/${value}`)
         .then(res => {
             //Create name box
             let newSec = document.createElement('section');
@@ -92,6 +96,15 @@ const handleSubmit = event => {
     })
 };
 
+//This is a catch all function for newly created HTML elements
+let newTargets = event => {
+    const ele = event.target;
+    if (ele.classList.contains('list-item')) {
+        console.log(ele.value);
+        getInvoice(ele.value);
+    }
+}
+
 getInvoiceList();
 getInvoice();
 
@@ -105,6 +118,8 @@ iSubmit.forEach(node => {
     node.addEventListener('click', handleSubmit);
 });
 
+//Listens anytime anything is clicked in the document. newTargets function deciphers the target.
+document.addEventListener('click', newTargets);
 
 
 // iDescrip.addEventListener('click', event => console.log('description clicked'));

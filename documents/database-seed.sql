@@ -18,14 +18,19 @@ create table item (
 );
 
 insert into invoice (inv_name)
-values ('First Invoice')
+values ('First Invoice'),
+('Second Invoice')
 ;
 
 insert into item (i_inv_id, i_description, i_cost, i_qty, i_unit)
-values ((select inv_id from invoice limit 1), 'Nails', 5.50, 10, 'box'),
-((select inv_id from invoice limit 1), 'Tape', 6, 6, 'roll'),
-((select inv_id from invoice limit 1), 'Mud', 10, 2, 'bucket'),
-((select inv_id from invoice limit 1), 'Sheetrock', 10, 10, 'sheet');
+values (1, 'Nails', 5.50, 10, 'box'),
+(1, 'Tape', 6, 6, 'roll'),
+(1, 'Mud', 10, 2, 'bucket'),
+(1, 'Sheetrock', 10, 10, 'sheet'),
+(2, 'Nails', 5.50, 10, 'box'),
+(2, 'Tape', 6, 6, 'roll'),
+(2, 'Mud', 10, 2, 'bucket'),
+(2, 'Sheetrock', 10, 10, 'sheet');
 
 update item
 set i_line_total = (i_cost * i_qty);
@@ -35,5 +40,16 @@ set inv_total = (
   select
   sum(i_line_total)
   from item
-  where i_inv_id = (select inv_id from invoice limit 1)
+  where i_inv_id = 1
 )
+where inv_id = 1;
+
+update invoice
+set inv_total = (
+  select
+  sum(i_line_total)
+  from item
+  where i_inv_id = 2
+)
+where inv_id = 2;
+
