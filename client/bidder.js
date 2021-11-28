@@ -5,12 +5,21 @@ const lineTotal = document.querySelector('.i-line-total');
 const itemBox = document.querySelector('.item-box');
 const listBox = document.querySelector('.list-box');
 
-const getInvoiceList = () => {
+let selectedInv = 0;
+
+const getLastViewed = async () => {
+    let lastViewed = 0;
+    await axios.get('/lastViewed')
+        .then(res => selectedInv = res.data[0].inv_id)
+        .catch(err => console.log(err));
+}
+
+const getInvoiceList = async () => {
     listBox.innerHTML = '';
-    console.log(listBox);
-    axios.get('/getInvoiceList')
-        .then(res => {
+    await axios.get('/getInvoiceList')
+        .then(async res => {
             // Create list items
+            selectedInv = res.data[0].inv_id
             res.data.forEach(ele => {
                 let newSec = document.createElement('button');
                 newSec.classList.add('list-item');
@@ -24,12 +33,14 @@ const getInvoiceList = () => {
                 <button class="i-edit">Edit</button>
                 <button class="i-delete">Delete</button>
                 `;
-                console.log(newSec.value)        
             })
+            console.log(selectedInv);
+            await getLastViewed();    
+            getInvoice(selectedInv);      
         })
 }
 
-const getInvoice = (value) => {
+const getInvoice = async (value) => {
     itemBox.innerHTML = '';
     axios.get(`/getInvoice/${value}`)
         .then(res => {
@@ -106,7 +117,7 @@ let newTargets = event => {
 }
 
 getInvoiceList();
-getInvoice();
+
 
 iCostPer.forEach(node => {
     node.addEventListener('input', handleLineTotal);
@@ -122,4 +133,3 @@ iSubmit.forEach(node => {
 document.addEventListener('click', newTargets);
 
 
-// iDescrip.addEventListener('click', event => console.log('description clicked'));

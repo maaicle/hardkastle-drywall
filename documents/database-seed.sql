@@ -4,7 +4,9 @@ drop table if exists invoice;
 create table invoice (
   inv_id serial primary key,
   inv_name varchar(25),
-  inv_total float(2)
+  inv_total float(2),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  viewed_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 create table item (

@@ -43,5 +43,16 @@ module.exports = {
       sequelize.query(`select * from invoice`)
         .then(dbRes => res.status(200).send(dbRes[0]))
         .catch(err => console.log(err));
+    },
+
+    lastViewed: (req, res) => {
+      console.log('getting last viewed');
+      sequelize.query(`select inv_id
+      from invoice
+      order by viewed_at desc
+      limit 1
+      `)
+        .then(dbRes => res.status(200).send(dbRes[0]))
+        .catch(err => console.log(err));
     }
 }

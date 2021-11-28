@@ -81,6 +81,7 @@ app.get('/pics/stud-wall-bw.jpg', (req, res) => {
 app.post('/createLineItem', ctrl.createLineItem);
 app.get('/getInvoice/:id', ctrl.getInvoice);
 app.get('/getInvoiceList', ctrl.getInvoiceList);
+app.get('/lastViewed', ctrl.lastViewed);
 
 app.use(rollbar.errorHandler());
 
