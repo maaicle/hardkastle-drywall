@@ -1,4 +1,3 @@
-
 const iSubmit = document.querySelectorAll('.i-submit');
 const iCostPer = document.querySelectorAll('.i-cost-per');
 const iQty = document.querySelectorAll('.i-quantity');
@@ -12,7 +11,7 @@ const iDescription = document.querySelector('.i-description.i-input');
 
 let selectedInv = 0;
 let renameId = 0;
-let renameValue = '';
+let renameFrom = '';
 let renameNode = null;
 
 const getLastViewed = async () => {
@@ -136,14 +135,17 @@ const createLineItem = event => {
     event.preventDefault();
     const inputFields = event.target.parentNode.querySelectorAll('.i-field')
     let inputArr = [];
-    const completeForm = false;
+    let completeForm = true;
     inputFields.forEach(node => {
-        inputArr.push(node.value);
-        node.value = '';
+        if(node.value) {
+            inputArr.push(node.value);
+            // node.value = '';
+        } else {
+            completeForm = false;
+        }
     })
     if (completeForm) {
 
-        handleLineTotal(event);
         let body = {
             invId: selectedInv,
             description: inputArr[0],
@@ -154,16 +156,22 @@ const createLineItem = event => {
         }
         axios.post(`/createLineItem`, body)
         .then(res => {
-            getInvoice(selectedInv);
         })
+        getInvoice(selectedInv);
         inputFields[0].focus();
+        inputFields.forEach(node => {
+            node.value = '';
+        })
+        handleLineTotal(event);
+    } else {
+        alert('Complete all fields before submitting');
     }
 };
 
 const deleteLine = event => {
     const item = event.target.parentNode;
     if (item.parentNode.classList.contains('item-box')) {
-        axios.delete(`deleteLine/${item.value}`)
+        axios.delete(`deleteLine/?invId=${selectedInv}&itemId=${item.value}`)
             .then(res => getInvoice(selectedInv))
             .catch(err => console.log(err));
     } else if (item.parentNode.classList.contains('list-box')) {
@@ -175,8 +183,10 @@ const deleteLine = event => {
 
 const renameField = event => {
     renameId = event.target.parentNode.value
+    renameFrom = event.target.parentNode.querySelector('.name-space').textContent;
+    console.log(renameFrom);
     event.target.parentNode.innerHTML = 
-    '<input placeholder="New Invoice" type="text" class="i-field i-input inv-name">'
+    `<input placeholder="${renameFrom}" type="text" class="i-field i-input inv-name">`
     //because values are being set dynamically I can't use querySelector. I have to select all list items, convert to array and then filter by value.
     const listItems = document.querySelectorAll(`.list-item`)
     const newTarget = [...listItems].filter(ele => {

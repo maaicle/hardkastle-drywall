@@ -84,7 +84,7 @@ app.get('/lastViewed', ctrl.lastViewed);
 app.post('/createLineItem', ctrl.createLineItem);
 app.post('/createInvoice/:name', ctrl.createInvoice);
 app.put('/putLastViewed/:id', ctrl.putLastViewed);
-app.delete('/deleteLine/:id', ctrl.deleteLine);
+app.delete('/deleteLine', ctrl.deleteLine);
 app.delete('/deleteListItem/:id', ctrl.deleteListItem);
 app.put('/updateName', ctrl.updateName);
 

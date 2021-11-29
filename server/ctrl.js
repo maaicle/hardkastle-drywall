@@ -88,8 +88,19 @@ module.exports = {
     },
 
     deleteLine: (req, res) => {
-      console.log(req.params.id);
-      sequelize.query(`delete from item where i_id = ${+req.params.id};`)
+      const {invId, itemId} = req.query;
+      console.log(req.query);
+      sequelize.query(`delete from item where i_id = ${itemId};
+
+      update invoice
+      set inv_total = (
+        select
+        sum(i_line_total)
+        from item
+        where i_inv_id = ${invId}
+      )
+      where inv_id = ${invId}; 
+      `)
       .then(dbRes => res.status(200).send(dbRes))
       .catch(err => console.log(err));
     },

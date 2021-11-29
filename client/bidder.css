@@ -2,12 +2,14 @@
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
-    /* flex-wrap: wrap; */
     min-height: calc(100vh - 210px);
-    /* height: 100vh; */
     width: 100vw;
-    background-color: rgb(119, 114, 107);
-    /* z-index: 101; */
+    background-color: #313431;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-image: url(pics/stonewall-bw.jpg);
 }
 
 .invoice-list {
@@ -16,13 +18,15 @@
     justify-content: flex-start;
     align-items: center;
     width: 500px;
-    background-color: cadetblue;
+    /* background-color: #313431; */
 }
 
 .list-box {
     width: calc(100% - 20px);
     height: 100%;
-    background-color: darkgreen;
+    background-color: rgb(49, 52, 49, 80%);
+    border: solid;
+    border-color: #ee7b28;
 }
 
 .invoice-box {
@@ -31,7 +35,7 @@
     justify-content: space-between;
     align-items: center;
     width: 1000px;
-    background-color: cadetblue;
+    /* background-color: #313431; */
     margin-left: 1vw;
 }
 
@@ -42,13 +46,17 @@
     width: calc(100% - 20px);
     height: 100px;
     margin: 10px;
-    background-color: chocolate;
+    background-color: rgb(49, 52, 49, 80%);
+    border: solid;
+    border-color: #ee7b28;
 }
 
 .item-box {
     width: calc(100% - 20px);
     height: 100%;
-    background-color: darkgreen;
+    background-color: rgb(49, 52, 49, 80%);
+    border: solid;
+    border-color: #ee7b28;
 }
 
 .item {
@@ -59,7 +67,7 @@
     width: calc(100% - 20px);
     height: 50px;
     margin: 10px;
-    background-color: rgb(126, 112, 189);
+    background-color: rgb(238, 123, 40, 80%);
 }
 
 .invoice-input {
@@ -69,13 +77,13 @@
     width: calc(100% - 20px);
     height: 100px;
     margin: 10px;
-    background-color: chocolate;
+    background-color: rgb(49, 52, 49, 80%);
+    border: solid;
+    border-color: #ee7b28;
 }
 
-.invoice-input {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+.list-item {
+    cursor: pointer;
 }
 
 .i-line-total {
@@ -102,6 +110,7 @@
     padding-top: 5px;
     padding-left: 2px;
     white-space: nowrap;
+    border-radius: 2px;
 }
 
 .i-column {
@@ -113,6 +122,7 @@
 
 .name-space {
     width: 300px;
+    font-weight: bold;
 }
 
 .delete-space {
@@ -125,6 +135,13 @@
 
 .inv-name {
     width: 300px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.inv-name.i-input {
+    font-weight: lighter;
+    text-align: start;
 }
 
 .i-total {
