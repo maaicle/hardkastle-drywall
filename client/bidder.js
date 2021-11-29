@@ -1,3 +1,4 @@
+
 const iSubmit = document.querySelectorAll('.i-submit');
 const iCostPer = document.querySelectorAll('.i-cost-per');
 const iQty = document.querySelectorAll('.i-quantity');
@@ -11,6 +12,12 @@ const getLastViewed = async () => {
     let lastViewed = 0;
     await axios.get('/lastViewed')
         .then(res => selectedInv = res.data[0].inv_id)
+        .catch(err => console.log(err));
+}
+
+const setLastViewed = (id) => {
+    axios.put(`/putLastViewed/${id}`)
+        .then(res => console.log('Last view set'))
         .catch(err => console.log(err));
 }
 
@@ -77,33 +84,40 @@ const getInvoice = async (value) => {
     console.log('getInvoice')
 }
 
-// let count = 0;
 const handleLineTotal = event => {
     let targetCost = event.target.parentNode.querySelector('.i-cost-per').value;
     let targetQty = event.target.parentNode.querySelector('.i-quantity').value;
-    lineTotal.textContent = (targetCost * targetQty).toFixed(2);
+    let total = (targetCost * targetQty).toFixed(2);
+    lineTotal.textContent = total;
+    lineTotal.value = total;
 }
 
-const handleSubmit = event => {
-    const inputFields = event.target.parentNode.querySelectorAll('.i-input')
+const createInvoice = async event => {
+    const invNameInput = event.target.parentNode.querySelector('.inv-name');
+    console.log(invNameInput.value);
+    await axios.post(`/createInvoice/${invNameInput.value}`)
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    
+}
+
+const createLineItem = event => {
+    const inputFields = event.target.parentNode.querySelectorAll('.i-field')
     inputArr = [];
     inputFields.forEach(node => {
         inputArr.push(node.value);
     })
     let body = {
+        invId: selectedInv,
         description: inputArr[0],
         costPer: inputArr[1],
         quantity: inputArr[2],
-        unit: inputArr[3]
+        unit: inputArr[3],
+        lineTotal: +inputArr[4]
     }
     axios.post(`/createLineItem`, body)
     .then(res => {
-        console.log(res.data);
-        let newDiv = document.createElement('div');
-        newDiv.classList.add('test');
-        itemBox.appendChild(newDiv);
-        newDiv.textContent=res.data.description;
-
+        getInvoice(selectedInv);
     })
 };
 
@@ -112,7 +126,21 @@ let newTargets = event => {
     const ele = event.target;
     if (ele.classList.contains('list-item')) {
         console.log(ele.value);
-        getInvoice(ele.value);
+        selectedInv = ele.value;
+        getInvoice(selectedInv);
+        setLastViewed(ele.value);
+    };
+
+    if (ele.classList.contains('inv-submit')) {
+        createInvoice(event);
+    };
+
+    if (ele.classList.contains('i-submit')) {
+        createLineItem(event);
+    };
+
+    if (ele.classList.contains('i-delete')) {
+        console.log('delete button');
     }
 }
 
@@ -125,9 +153,9 @@ iCostPer.forEach(node => {
 iQty.forEach(node => {
     node.addEventListener('input', handleLineTotal);
 })
-iSubmit.forEach(node => {
-    node.addEventListener('click', handleSubmit);
-});
+// iSubmit.forEach(node => {
+//     node.addEventListener('click', handleSubmit);
+// });
 
 //Listens anytime anything is clicked in the document. newTargets function deciphers the target.
 document.addEventListener('click', newTargets);

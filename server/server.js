@@ -78,10 +78,13 @@ app.get('/pics/stud-wall-bw.jpg', (req, res) => {
 });
 
 // Bidder API
-app.post('/createLineItem', ctrl.createLineItem);
 app.get('/getInvoice/:id', ctrl.getInvoice);
 app.get('/getInvoiceList', ctrl.getInvoiceList);
 app.get('/lastViewed', ctrl.lastViewed);
+app.post('/createLineItem', ctrl.createLineItem);
+app.post('/createInvoice/:name', ctrl.createInvoice);
+app.put('/putLastViewed/:id', ctrl.putLastViewed);
+
 
 app.use(rollbar.errorHandler());
 
