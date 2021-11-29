@@ -36,6 +36,9 @@
 }
 
 .item-input {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     width: calc(100% - 20px);
     height: 100px;
     margin: 10px;
@@ -55,7 +58,17 @@
     background-color: rgb(126, 112, 189);
 }
 
-.item-input {
+.invoice-input {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: calc(100% - 20px);
+    height: 100px;
+    margin: 10px;
+    background-color: chocolate;
+}
+
+.invoice-input {
     display: flex;
     justify-content: space-evenly;
     align-items: center;

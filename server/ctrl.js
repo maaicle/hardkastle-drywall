@@ -85,6 +85,31 @@ module.exports = {
       values ('${name}')`)
         .then(dbRes => res.status(200).send('Invoice Created'))
         .catch(err => console.log(err));
+    },
+
+    deleteLine: (req, res) => {
+      console.log(req.params.id);
+      sequelize.query(`delete from item where i_id = ${+req.params.id};`)
+      .then(dbRes => res.status(200).send(dbRes))
+      .catch(err => console.log(err));
+    },
+
+    deleteListItem: (req, res) => {
+      sequelize.query(`delete from item where i_inv_id = ${+req.params.id};
+        delete from invoice where inv_id = ${+req.params.id};
+      `)
+      .then(dbRes => res.status(200).send(dbRes))
+      .catch(err => console.log(err));
+    },
+
+    updateName: (req, res) => {
+      const {id, newName} = req.body;
+      sequelize.query(`update invoice
+      set inv_name = '${newName}'
+      where inv_id = '${id}'; 
+      `)
+      .then(dbRes => res.status(200).send('name updated'))
+      .catch(err => console.log(err));
     }
 
 }

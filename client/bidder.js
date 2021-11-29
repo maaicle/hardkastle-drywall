@@ -5,8 +5,14 @@ const iQty = document.querySelectorAll('.i-quantity');
 const lineTotal = document.querySelector('.i-line-total');
 const itemBox = document.querySelector('.item-box');
 const listBox = document.querySelector('.list-box');
+const invName = document.querySelector('.inv-name');
+const invInput = document.querySelector('.invoice-input');
+const itemInput = document.querySelector('.item-input');
 
 let selectedInv = 0;
+let renameId = 0;
+let renameValue = '';
+let renameNode = null;
 
 const getLastViewed = async () => {
     let lastViewed = 0;
@@ -28,7 +34,7 @@ const getInvoiceList = async () => {
             // Create list items
             selectedInv = res.data[0].inv_id
             res.data.forEach(ele => {
-                let newSec = document.createElement('button');
+                const newSec = document.createElement('div');
                 newSec.classList.add('list-item');
                 newSec.classList.add('item');
                 newSec.innerText = 'Hello This is a test';
@@ -37,11 +43,11 @@ const getInvoiceList = async () => {
                 newSec.innerHTML = 
                 `
                 ${ele.inv_name}
-                <button class="i-edit">Edit</button>
+                <button class="i-edit">Rename</button>
                 <button class="i-delete">Delete</button>
                 `;
             })
-            console.log(selectedInv);
+            console.log(`getInvoiceList selectedInv ${selectedInv}`);
             await getLastViewed();    
             getInvoice(selectedInv);      
         })
@@ -61,6 +67,7 @@ const getInvoice = async (value) => {
             res.data.forEach(ele => {
                 let newSec = document.createElement('section');
                 newSec.classList.add('item');
+                newSec.value = ele.i_id;
                 itemBox.appendChild(newSec);
                 newSec.innerHTML =
                 `
@@ -69,7 +76,6 @@ const getInvoice = async (value) => {
                     <div class="i-field i-quantity">${ele.i_qty}</div>
                     <div class="i-field i-unit">${ele.i_unit}</div>
                     <div class="i-field i-line-total">${ele.i_line_total}</div>
-                    <button class="i-edit">Edit</button>
                     <button class="i-delete">Delete</button>
                 `;
             })
@@ -93,20 +99,29 @@ const handleLineTotal = event => {
 }
 
 const createInvoice = async event => {
+    event.preventDefault();
     const invNameInput = event.target.parentNode.querySelector('.inv-name');
-    console.log(invNameInput.value);
-    await axios.post(`/createInvoice/${invNameInput.value}`)
-        .then(res => console.log(res))
+    console.log(`createInvoice name value: ${invNameInput.value}`);
+    if (invNameInput.value) {
+        await axios.post(`/createInvoice/${invNameInput.value}`)
+        .then(res => {
+            getInvoiceList()
+        })
         .catch(err => console.log(err));
-    
+        invNameInput.value = '';
+    }
+        
 }
 
 const createLineItem = event => {
+    event.preventDefault();
     const inputFields = event.target.parentNode.querySelectorAll('.i-field')
     inputArr = [];
     inputFields.forEach(node => {
         inputArr.push(node.value);
+        node.value = '';
     })
+    handleLineTotal(event);
     let body = {
         invId: selectedInv,
         description: inputArr[0],
@@ -121,8 +136,49 @@ const createLineItem = event => {
     })
 };
 
+const deleteLine = event => {
+    const item = event.target.parentNode;
+    if (item.parentNode.classList.contains('item-box')) {
+        axios.delete(`deleteLine/${item.value}`)
+            .then(res => getInvoice(selectedInv))
+            .catch(err => console.log(err));
+    } else if (item.parentNode.classList.contains('list-box')) {
+        axios.delete(`deleteListItem/${item.value}`)
+            .then(res => getInvoiceList())
+            .catch(err => console.log(err));
+    }
+}
+
+const renameField = event => {
+    renameId = event.target.parentNode.value
+    event.target.parentNode.innerHTML = 
+    '<input placeholder="New Invoice" type="text" class="i-field i-input inv-name">'
+    console.log(renameId);
+    //because values are being set dynamically I can't use querySelector. I have to select all list items, convert to array and then filter by value.
+    const listItems = document.querySelectorAll(`.list-item`)
+    const newTarget = [...listItems].filter(ele => {
+        return ele.value === renameId
+    });
+    renameNode = newTarget[0].querySelector('.inv-name');
+    renameNode.focus();
+}
+
+const updateName = event => {
+    console.log(renameId, renameNode.value);
+    if (renameNode.value) {
+        const body = {
+            id: renameId,
+            newName: renameNode.value
+        }
+        axios.put(`/updateName`, body)
+        .then(res => getInvoiceList())
+        .catch(err => console.log(err));
+    } 
+}
+
 //This is a catch all function for newly created HTML elements
 let newTargets = event => {
+    // console.log(event, event.pointerType);
     const ele = event.target;
     if (ele.classList.contains('list-item')) {
         console.log(ele.value);
@@ -140,7 +196,26 @@ let newTargets = event => {
     };
 
     if (ele.classList.contains('i-delete')) {
-        console.log('delete button');
+        deleteLine(event);
+    }
+
+    if (ele.classList.contains('i-edit') && renameId === 0) {
+        renameField(event);
+    } else if (event.target !== renameNode && renameId > 0) {
+        console.log(event.target, renameNode);
+        updateName(event);
+        // getInvoiceList();
+        renameId = 0;
+    }
+}
+
+const keyListener = event => {
+    if (event.key === 'Enter' && renameId > 0) {
+        updateName(event);
+        // getInvoiceList();
+        renameId = 0;
+    // } else if (event.key === 'Enter' && document.activeElement.parentNode === invInput) {
+    //     event.preventDefault();
     }
 }
 
@@ -153,11 +228,12 @@ iCostPer.forEach(node => {
 iQty.forEach(node => {
     node.addEventListener('input', handleLineTotal);
 })
-// iSubmit.forEach(node => {
-//     node.addEventListener('click', handleSubmit);
-// });
+
+invInput.addEventListener('submit', createInvoice);
+itemInput.addEventListener('submit', createLineItem);
 
 //Listens anytime anything is clicked in the document. newTargets function deciphers the target.
 document.addEventListener('click', newTargets);
+document.addEventListener('keypress', keyListener);
 
 
