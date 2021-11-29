@@ -79,10 +79,8 @@ footer {
     width: 100%
 }
 
-.card {   
-    /* height: 75vh; */
+.card {
     height: 700px;
-    /* width: 100%; */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -98,7 +96,6 @@ footer {
 
 .card1 {
     background-image: url(pics/stonewall-bw.jpg);
-    /* background-image: url(/stonewall); */
 }
 
 .card2 {

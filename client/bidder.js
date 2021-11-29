@@ -38,12 +38,11 @@ const getInvoiceList = async () => {
                 const newSec = document.createElement('div');
                 newSec.classList.add('list-item');
                 newSec.classList.add('item');
-                newSec.innerText = 'Hello This is a test';
                 newSec.value = ele.inv_id;
                 listBox.appendChild(newSec);
                 newSec.innerHTML = 
                 `
-                ${ele.inv_name}
+                <div class="name-space">${ele.inv_name}</div>
                 <button class="i-edit">Rename</button>
                 <button class="i-delete">Delete</button>
                 `;
@@ -64,6 +63,19 @@ const getInvoice = async (value) => {
                 newSec.classList.add('inv-name-box');
                 itemBox.appendChild(newSec);
                 newSec.innerHTML = `<p class= inv-name>${res.data[0].inv_name}</p>`
+            //Create columns
+            let newColumns = document.createElement('section');
+                newColumns.classList.add('item');
+                newColumns.classList.add('columns')
+                itemBox.appendChild(newColumns);
+                newColumns.innerHTML = `
+                    <div class="i-field i-column i-description">Description</div>
+                    <div class="i-field i-column i-cost-per">Cost Per</div>
+                    <div class="i-field i-column i-quantity">Quantity</div>
+                    <div class="i-field i-column i-unit">Unit</div>
+                    <div class="i-field i-column i-line-total">Line Total</div>
+                    <div class="delete-space">Delete</div>
+                `
             //Create item lines
             if (res.data[0].i_id) {
                 res.data.forEach(ele => {
@@ -86,7 +98,10 @@ const getInvoice = async (value) => {
                 newTotal.classList.add('item');
                 newTotal.classList.add('invoice-total');
                 itemBox.appendChild(newTotal);
-                newTotal.innerHTML = `<div class="i-field i-total">${res.data[0].inv_total}</div>`;
+                newTotal.innerHTML = `
+                <div class="i-column">Total:</div>
+                <div class="i-field i-total">${res.data[0].inv_total}</div>
+                `;
             }
         })
         .catch(err => console.log(err));
@@ -126,20 +141,23 @@ const createLineItem = event => {
         inputArr.push(node.value);
         node.value = '';
     })
-    handleLineTotal(event);
-    let body = {
-        invId: selectedInv,
-        description: inputArr[0],
-        costPer: inputArr[1],
-        quantity: inputArr[2],
-        unit: inputArr[3],
-        lineTotal: +inputArr[4]
+    if (completeForm) {
+
+        handleLineTotal(event);
+        let body = {
+            invId: selectedInv,
+            description: inputArr[0],
+            costPer: inputArr[1],
+            quantity: inputArr[2],
+            unit: inputArr[3],
+            lineTotal: +inputArr[4]
+        }
+        axios.post(`/createLineItem`, body)
+        .then(res => {
+            getInvoice(selectedInv);
+        })
+        inputFields[0].focus();
     }
-    axios.post(`/createLineItem`, body)
-    .then(res => {
-        getInvoice(selectedInv);
-    })
-    inputFields[0].focus();
 };
 
 const deleteLine = event => {
@@ -159,13 +177,13 @@ const renameField = event => {
     renameId = event.target.parentNode.value
     event.target.parentNode.innerHTML = 
     '<input placeholder="New Invoice" type="text" class="i-field i-input inv-name">'
-    console.log(renameId);
     //because values are being set dynamically I can't use querySelector. I have to select all list items, convert to array and then filter by value.
     const listItems = document.querySelectorAll(`.list-item`)
     const newTarget = [...listItems].filter(ele => {
         return ele.value === renameId
     });
     renameNode = newTarget[0].querySelector('.inv-name');
+    // console.log(renameId, renameNode);
     renameNode.focus();
 }
 
@@ -177,9 +195,10 @@ const updateName = event => {
             newName: renameNode.value
         }
         axios.put(`/updateName`, body)
-        .then(res => getInvoiceList())
+        .then(res => console.log('name updated'))
         .catch(err => console.log(err));
-    } 
+    }
+    getInvoiceList();
 }
 
 //This is a catch all function for newly created HTML elements
@@ -191,6 +210,13 @@ let newTargets = event => {
         selectedInv = ele.value;
         getInvoice(selectedInv);
         setLastViewed(ele.value);
+    };
+
+    if (ele.classList.contains('name-space')) {
+        console.log(ele.parentNode.value);
+        selectedInv = ele.parentNode.value;
+        getInvoice(selectedInv);
+        setLastViewed(ele.parentNode.value);
     };
 
     if (ele.classList.contains('inv-submit')) {
