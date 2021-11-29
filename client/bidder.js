@@ -8,6 +8,7 @@ const listBox = document.querySelector('.list-box');
 const invName = document.querySelector('.inv-name');
 const invInput = document.querySelector('.invoice-input');
 const itemInput = document.querySelector('.item-input');
+const iDescription = document.querySelector('.i-description.i-input');
 
 let selectedInv = 0;
 let renameId = 0;
@@ -64,27 +65,29 @@ const getInvoice = async (value) => {
                 itemBox.appendChild(newSec);
                 newSec.innerHTML = `<p class= inv-name>${res.data[0].inv_name}</p>`
             //Create item lines
-            res.data.forEach(ele => {
-                let newSec = document.createElement('section');
-                newSec.classList.add('item');
-                newSec.value = ele.i_id;
-                itemBox.appendChild(newSec);
-                newSec.innerHTML =
-                `
+            if (res.data[0].i_id) {
+                res.data.forEach(ele => {
+                    let newSec = document.createElement('section');
+                    newSec.classList.add('item');
+                    newSec.value = ele.i_id;
+                    itemBox.appendChild(newSec);
+                    newSec.innerHTML =
+                    `
                     <div class="i-field i-description">${ele.i_description}</div>
                     <div class="i-field i-cost-per">${ele.i_cost}</div>
                     <div class="i-field i-quantity">${ele.i_qty}</div>
                     <div class="i-field i-unit">${ele.i_unit}</div>
                     <div class="i-field i-line-total">${ele.i_line_total}</div>
                     <button class="i-delete">Delete</button>
-                `;
-            })
-            //Create total line
-            let newTotal = document.createElement('section');
-            newTotal.classList.add('item');
-            newTotal.classList.add('invoice-total');
-            itemBox.appendChild(newTotal);
-            newTotal.innerHTML = `<div class="i-field i-total">${res.data[0].inv_total}</div>`;
+                    `;
+                })
+                //Create total line
+                let newTotal = document.createElement('section');
+                newTotal.classList.add('item');
+                newTotal.classList.add('invoice-total');
+                itemBox.appendChild(newTotal);
+                newTotal.innerHTML = `<div class="i-field i-total">${res.data[0].inv_total}</div>`;
+            }
         })
         .catch(err => console.log(err));
     console.log('getInvoice')
@@ -109,6 +112,7 @@ const createInvoice = async event => {
         })
         .catch(err => console.log(err));
         invNameInput.value = '';
+        iDescription.focus();
     }
         
 }
@@ -116,7 +120,8 @@ const createInvoice = async event => {
 const createLineItem = event => {
     event.preventDefault();
     const inputFields = event.target.parentNode.querySelectorAll('.i-field')
-    inputArr = [];
+    let inputArr = [];
+    const completeForm = false;
     inputFields.forEach(node => {
         inputArr.push(node.value);
         node.value = '';
@@ -134,6 +139,7 @@ const createLineItem = event => {
     .then(res => {
         getInvoice(selectedInv);
     })
+    inputFields[0].focus();
 };
 
 const deleteLine = event => {
@@ -204,7 +210,6 @@ let newTargets = event => {
     } else if (event.target !== renameNode && renameId > 0) {
         console.log(event.target, renameNode);
         updateName(event);
-        // getInvoiceList();
         renameId = 0;
     }
 }
@@ -212,10 +217,7 @@ let newTargets = event => {
 const keyListener = event => {
     if (event.key === 'Enter' && renameId > 0) {
         updateName(event);
-        // getInvoiceList();
         renameId = 0;
-    // } else if (event.key === 'Enter' && document.activeElement.parentNode === invInput) {
-    //     event.preventDefault();
     }
 }
 
