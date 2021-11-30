@@ -1,6 +1,6 @@
 .body-box {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: stretch;
     min-height: calc(100vh - 210px);
     width: 100vw;
@@ -84,6 +84,7 @@
 
 .list-item {
     cursor: pointer;
+    /* background-color: #ee7b28; */
 }
 
 .i-line-total {
@@ -147,4 +148,54 @@
 .i-total {
     margin-right: 20px;
     margin-left: 20px;
+}
+
+button {
+    border-radius: 2px;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+button:hover {
+    background-color: rgb(49, 52, 49, 80%);
+}
+
+.i-delete {
+    background-image: url(/pics/delete.png);
+}
+
+.i-edit {
+    background-image: url(/pics/edit.png);
+}
+
+.submit {
+    box-sizing: border-box;
+    background-color: rgb(49, 52, 49, 80%);;
+    border: solid;
+    border-radius: 2px;
+    border-color: #ee7b28;
+    height: 30px;
+    flex: 0 1 auto;
+    opacity: 87%;
+    font-family: montserrat;
+    font-size: 16px;
+    /* padding-top: 5px; */
+    padding-left: 2px;
+    white-space: nowrap;
+    color: white;
+}
+
+.submit:hover {
+    background-color: #ee7b28;
+}
+
+.selected {
+    /* background-color: #ee7b28; */
+    background-color: rgba(255, 255, 255, .65);
+    outline-width: 2px;
+    box-shadow: rgba(255, 255, 255, .65) 0px 0px 1px 3px;
 }

@@ -17,7 +17,7 @@ let renameNode = null;
 const getLastViewed = async () => {
     let lastViewed = 0;
     await axios.get('/lastViewed')
-        .then(res => selectedInv = res.data[0].inv_id)
+        .then(res => changeSelectedInv(res.data[0].inv_id))
         .catch(err => console.log(err));
 }
 
@@ -32,7 +32,7 @@ const getInvoiceList = async () => {
     await axios.get('/getInvoiceList')
         .then(async res => {
             // Create list items
-            selectedInv = res.data[0].inv_id
+            changeSelectedInv(res.data[0].inv_id);
             res.data.forEach(ele => {
                 const newSec = document.createElement('div');
                 newSec.classList.add('list-item');
@@ -42,8 +42,8 @@ const getInvoiceList = async () => {
                 newSec.innerHTML = 
                 `
                 <div class="name-space">${ele.inv_name}</div>
-                <button class="i-edit">Rename</button>
-                <button class="i-delete">Delete</button>
+                <button class="i-edit"></button>
+                <button class="i-delete"></button>
                 `;
             })
             console.log(`getInvoiceList selectedInv ${selectedInv}`);
@@ -89,7 +89,7 @@ const getInvoice = async (value) => {
                     <div class="i-field i-quantity">${ele.i_qty}</div>
                     <div class="i-field i-unit">${ele.i_unit}</div>
                     <div class="i-field i-line-total">${ele.i_line_total}</div>
-                    <button class="i-delete">Delete</button>
+                    <button class="i-delete"></button>
                     `;
                 })
                 //Create total line
@@ -139,7 +139,6 @@ const createLineItem = event => {
     inputFields.forEach(node => {
         if(node.value) {
             inputArr.push(node.value);
-            // node.value = '';
         } else {
             completeForm = false;
         }
@@ -211,20 +210,40 @@ const updateName = event => {
     getInvoiceList();
 }
 
+const changeSelectedInv = id => {
+    const listItems = document.querySelectorAll(`.list-item`)
+    const listItemsArray = [...listItems]
+    listItemsArray.forEach(ele => {
+        if (ele.value === selectedInv) {
+            ele.classList.remove('selected');
+        };
+        
+        if (ele.value === id) {
+            ele.classList.add('selected');
+        };
+    });
+    // .filter(ele => {
+        // return ele.value === selectedInv
+    // });
+    // console.log(listItemsArray);
+    selectedInv = id;
+
+}
+
 //This is a catch all function for newly created HTML elements
 let newTargets = event => {
     // console.log(event, event.pointerType);
     const ele = event.target;
     if (ele.classList.contains('list-item')) {
         console.log(ele.value);
-        selectedInv = ele.value;
+        changeSelectedInv(ele.value);
         getInvoice(selectedInv);
         setLastViewed(ele.value);
     };
 
     if (ele.classList.contains('name-space')) {
         console.log(ele.parentNode.value);
-        selectedInv = ele.parentNode.value;
+        changeSelectedInv(ele.parentNode.value);
         getInvoice(selectedInv);
         setLastViewed(ele.parentNode.value);
     };
