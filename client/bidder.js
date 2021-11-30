@@ -131,7 +131,7 @@ const createInvoice = async event => {
         
 }
 
-const createLineItem = event => {
+const createLineItem = async event => {
     event.preventDefault();
     const inputFields = event.target.parentNode.querySelectorAll('.i-field')
     let inputArr = [];
@@ -153,7 +153,7 @@ const createLineItem = event => {
             unit: inputArr[3],
             lineTotal: +inputArr[4]
         }
-        axios.post(`/createLineItem`, body)
+        await axios.post(`/createLineItem`, body)
         .then(res => {
         })
         getInvoice(selectedInv);
@@ -196,14 +196,14 @@ const renameField = event => {
     renameNode.focus();
 }
 
-const updateName = event => {
+const updateName = async event => {
     console.log(renameId, renameNode.value);
     if (renameNode.value) {
         const body = {
             id: renameId,
             newName: renameNode.value
         }
-        axios.put(`/updateName`, body)
+        await axios.put(`/updateName`, body)
         .then(res => console.log('name updated'))
         .catch(err => console.log(err));
     }
@@ -222,10 +222,6 @@ const changeSelectedInv = id => {
             ele.classList.add('selected');
         };
     });
-    // .filter(ele => {
-        // return ele.value === selectedInv
-    // });
-    // console.log(listItemsArray);
     selectedInv = id;
 
 }
